@@ -1,0 +1,8 @@
+curl -X POST http://localhost:8000/api/v1/user-courses \
+    -H "Content-Type: application/json" \
+    -d '{"course_id": "1", "user_id": "123"}'
+
+
+curl -X PUT http://localhost:8000/api/v1/user-courses/1 \
+    -H "Content-Type: application/json" \
+    -d '{"state": "1"}'
