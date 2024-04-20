@@ -18,15 +18,13 @@ from django.contrib import admin
 from django.urls import path, include
 
 from courses.views import CourseListView
-from courses.views import UserCourseCreateUpdateView
+from courses.views import CourseUpdatePublishView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('api/v1/', include([
-        path('courses/', CourseListView.as_view(), name='course-list'),
-        
-        path('user-courses', UserCourseCreateUpdateView.as_view(), name='user-course-create-create'),
-        path('user-courses/<int:pk>', UserCourseCreateUpdateView.as_view(), name='user-course-create-update'),
+        path('courses/', CourseListView.as_view(), name='course_list'),
+        path('courses/<int:pk>/publish', CourseUpdatePublishView.as_view(), name='course_publish'),
     ]))
 ]

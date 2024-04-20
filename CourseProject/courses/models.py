@@ -6,6 +6,7 @@ class Course(models.Model):
     description = models.TextField()
     duration = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
+    published_at = models.DateTimeField(null=True, blank=True)
     
     def __str__(self):
         return self.name
