@@ -12,9 +12,13 @@ def _get_courses():
     
     return None
 
-def _update_course(pk):
+def _update_course(pk, user_id=1):
     url = f'http://127.0.0.1:8001/api/v1/courses/{pk}/publish'
-    response = requests.put(url)
+    data = {
+        'published_by': user_id,
+    }
+
+    response = requests.put(url, data=data)
     if response.status_code == 200:
         return response.json()
     

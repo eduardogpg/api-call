@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 
 from .models import Course
 from .serializers import CourseSerializer
+from .serializers import CourseUpdateSerializer
 
 class CourseListView(APIView):
     def get(self, reequest, *args, **kwargs):
@@ -15,13 +16,13 @@ class CourseListView(APIView):
 class CourseUpdatePublishView(APIView):
     def put(self, request, pk, *args, **kwargs):
         course = Course.objects.get(pk=pk)
-        10 / 0
-        if course:
-            course.published_at = timezone.now()
-            course.save()
+        if not course:
+            return Response({'error': 'Course not found'}, status=404)
+        
+        serializer = CourseUpdateSerializer(course, data=request.data)
 
-            serializer = CourseSerializer(course)
-            return Response(serializer.data)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=400)
 
-        else:
-            return Response(status=404)
+        serializer.save()
+        return Response(CourseSerializer(course).data)
